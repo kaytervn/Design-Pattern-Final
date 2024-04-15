@@ -11,6 +11,6 @@ public class BitcoinStrategy implements PaymentStrategy {
 	public void pay(int amount) {
 		System.out.println(amount + " units paid with Bitcoin.");
 		System.out.println("Wallet Address: " + walletAddress);
-		System.out.println();
+		System.out.println("---");
 	}
 }

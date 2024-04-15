@@ -1,6 +1,6 @@
 package personal.strategy;
 
-public class Demo {
+public class Main {
 	public static void main(String[] args) {
 		Transportation trans = new Transportation();
 

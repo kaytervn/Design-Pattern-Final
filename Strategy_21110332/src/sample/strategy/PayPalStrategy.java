@@ -14,6 +14,6 @@ public class PayPalStrategy implements PaymentStrategy {
 		System.out.println(amount + " units paid using PayPal.");
 		System.out.println("Email ID: " + emailId);
 		System.out.println("password: " + password);
-		System.out.println();
+		System.out.println("---");
 	}
 }

@@ -9,5 +9,6 @@ public class CarStrategy implements TransportStrategy {
 		} else {
 			System.out.println("Parcels with a mass of " + mass + " kg are OVERWEIGHT for transportation by car.");
 		}
+		System.out.println("---");
 	}
 }

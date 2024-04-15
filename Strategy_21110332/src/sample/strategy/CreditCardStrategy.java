@@ -20,6 +20,6 @@ public class CreditCardStrategy implements PaymentStrategy {
 		System.out.println("Card Number: " + cardNumber);
 		System.out.println("CVV: " + cvv);
 		System.out.println("Date Of Expiry: " + dateOfExpiry);
-		System.out.println();
+		System.out.println("---");
 	}
 }
