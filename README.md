@@ -2,7 +2,7 @@
 
 <h2>1. Định nghĩa</h2>
 
-Strategy Pattern là thuộc nhóm mẫu thiết kế hành vi (behavioral design patterns), nó cho phép lựa chọn giữa các thuật toán hoặc chiến lược thực thi tại thời điểm chạy của chương trình.
+Strategy Pattern thuộc nhóm mẫu thiết kế hành vi (behavioral design patterns), nó cho phép lựa chọn giữa các thuật toán hoặc chiến lược thực thi tại thời điểm chạy của chương trình.
 
 Các thành phần:
 
@@ -166,7 +166,7 @@ Parcels with a mass of 243 kg are transporting by truck.
 
 <h2>1. Định nghĩa</h2>
 
-Mediator Pattern thuộc nhóm thiết kế hành vi (behavioral design pattern). Mục tiêu của nó là giảm sự phụ thuộc giữa các đối tượng bằng cách tạo ra một đối tượng trung gian (mediator) chịu trách nhiệm giao tiếp giữa các đối tượng khác nhau.
+Mediator Pattern thuộc nhóm mẫu thiết kế hành vi (behavioral design pattern). Mục tiêu của nó là giảm sự phụ thuộc giữa các đối tượng bằng cách tạo ra một đối tượng trung gian (mediator) chịu trách nhiệm giao tiếp giữa các đối tượng khác nhau.
 
 Các thành phần:
 
