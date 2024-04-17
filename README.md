@@ -434,8 +434,8 @@ Template Pattern thuộc nhóm mẫu thiết kế hành vi (behavioral design pa
 
 Các thành phần:
 
-- Abstract Template Class: Lớp cơ sở chứa các phương thức cốt lõi và một phương thức template để gọi các phương thức cốt lõi đó.
-- Concrete Classes: Các lớp con triển khai các phương thức cốt lõi để thực hiện các bước cụ thể của thuật toán.
+- **Abstract Template Class:** Lớp cơ sở chứa các phương thức cốt lõi và một phương thức template để gọi các phương thức cốt lõi đó.
+- **Concrete Classes:** Các lớp con triển khai các phương thức cốt lõi để thực hiện các bước cụ thể của thuật toán.
 
 <h2>2. Cài đặt</h2>
 
