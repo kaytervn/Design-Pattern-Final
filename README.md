@@ -519,3 +519,158 @@ Preparing ingredients
 Tossing the salad ingredients
 Cleaning up
 ```
+
+<h1>Chain Of Responsibility Pattern</h1>
+
+<h2>1. Định nghĩa</h2>
+
+Chain Of Responsibility Pattern thuộc nhóm mẫu thiết kế hành vi (behavioral design pattern), nó cho phép các đối tượng được xử lý tuần tự theo một chuỗi và không biết về đối tượng xử lý tiếp theo trong chuỗi.
+
+Các thành phần:
+
+- Handler: Interface hoặc lớp trừu tượng chứa phương thức để xử lý yêu cầu và có một tham chiếu đến handler tiếp theo trong chuỗi.
+- Concrete Handlers: Các lớp cụ thể triển khai phương thức xử lý yêu cầu và quyết định liệu họ có thể xử lý yêu cầu đó hay không.
+
+<h2>2. Cài đặt</h2>
+
+**2.1 Handler (TransportHandler)**
+
+TransportHandler là lớp cơ sở chứa phương thức handleDepart() để xử lý yêu cầu vận chuyển và quyết định liệu nó có thể xử lý yêu cầu đó hay không. Nếu không thể xử lý, nó sẽ chuyển yêu cầu đó cho handler tiếp theo trong chuỗi.
+
+```java
+public abstract class TransportHandler {
+
+	protected TransportHandler nextHandler;
+
+	public void handleDepart(TravelRequest request) {
+		System.out.println("Checking for transportation: " + this.getClass().getSimpleName());
+		if (this.isAcceptable(request.getPassengers())) {
+			this.depart(request);
+		} else if (nextHandler != null) {
+			System.out.println("Request is rejected.");
+			nextHandler.handleDepart(request);
+		}
+	}
+
+	public void setNext(TransportHandler handler) {
+		this.nextHandler = handler;
+	}
+
+	protected abstract boolean isAcceptable(int passengers);
+
+	protected abstract void depart(TravelRequest request);
+}
+```
+
+**2.2 Các Concrete Handlers (Car, Bus và Airplane)**
+
+Car, Bus, Airplane: Các lớp này triển khai phương thức xử lý để kiểm tra xem số lượng hành khách có phù hợp với loại phương tiện của họ hay không và thực hiện vận chuyển tương ứng.
+
+```java
+public class Car extends TransportHandler {
+
+	private static final int MAX_SIZE = 6;
+
+	@Override
+	protected boolean isAcceptable(int passengers) {
+		return passengers <= MAX_SIZE;
+	}
+
+	@Override
+	protected void depart(TravelRequest request) {
+		System.out.println("The car is departing with a load of " + request.getPassengers() + " passengers.");
+		System.out.println("---");
+	}
+}
+```
+
+```java
+public class Bus extends TransportHandler {
+
+	private static final int MIN_SIZE = 7;
+	private static final int MAX_SIZE = 30;
+
+	@Override
+	protected boolean isAcceptable(int passengers) {
+		return passengers >= MIN_SIZE && passengers <= MAX_SIZE;
+	}
+
+	@Override
+	protected void depart(TravelRequest request) {
+		System.out.println("The bus is departing with a load of " + request.getPassengers() + " passengers.");
+		System.out.println("---");
+	}
+}
+```
+
+```java
+public class Airplane extends TransportHandler {
+
+	private static final int MIN_SIZE = 31;
+
+	@Override
+	protected boolean isAcceptable(int passengers) {
+		return passengers >= MIN_SIZE;
+	}
+
+	@Override
+	protected void depart(TravelRequest request) {
+		System.out.println("The airplane is departing with a load of " + request.getPassengers() + " passengers.");
+		System.out.println("---");
+	}
+}
+```
+
+**2.3 Lớp TourGuide**
+
+TourGuide là một lớp trung gian để tạo ra chuỗi xử lý vận chuyển. Nó khởi tạo các đối tượng Car, Bus và Airplane, sau đó thiết lập chuỗi bằng cách gọi setNext() theo thứ tự từ Car đến Bus, rồi từ Bus đến Airplane. Cuối cùng, nó trả về đối tượng Car để bắt đầu quá trình xử lý yêu cầu.
+
+```java
+public class TourGuide {
+
+	public static TransportHandler getTransport() {
+		TransportHandler car = new Car();
+		TransportHandler bus = new Bus();
+		TransportHandler airplane = new Airplane();
+
+		car.setNext(bus);
+		bus.setNext(airplane);
+		return car;
+	}
+}
+```
+
+<h2>3. Thử nghiệm</h2>
+
+Trong lớp Main, chúng ta sử dụng TourGuide.getTransport() để lấy đối tượng xử lý đầu tiên trong chuỗi xử lý vận chuyển. Sau đó, chúng ta gọi phương thức handleDepart() trên đối tượng xử lý với các yêu cầu vận chuyển khác nhau (TravelRequest). Kết quả sẽ được in ra màn hình, hiển thị thông báo về quá trình xử lý vận chuyển.
+
+```java
+public class Main {
+
+	public static void main(String[] args) {
+		TourGuide.getTransport().handleDepart(new TravelRequest(5));
+		TourGuide.getTransport().handleDepart(new TravelRequest(10));
+		TourGuide.getTransport().handleDepart(new TravelRequest(97));
+	}
+}
+```
+
+Output:
+
+```
+Checking for transportation: Car
+The car is departing with a load of 5 passengers.
+---
+Checking for transportation: Car
+Request is rejected.
+Checking for transportation: Bus
+The bus is departing with a load of 10 passengers.
+---
+Checking for transportation: Car
+Request is rejected.
+Checking for transportation: Bus
+Request is rejected.
+Checking for transportation: Airplane
+The airplane is departing with a load of 97 passengers.
+---
+```
