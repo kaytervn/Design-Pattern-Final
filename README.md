@@ -313,3 +313,209 @@ John is talking: Thank you, everyone, for your valuable suggestions.
 Sarah (HR Manager) is hearing
 Michael (Operations Supervisor) is hearing
 ```
+
+<h1 align=center>State Pattern</h1>
+
+<h2>1. Định nghĩa</h2>
+
+State Pattern thuộc nhóm mẫu thiết kế hành vi (behavioral design pattern), nó cho phép một đối tượng thay đổi hành vi của mình khi trạng thái nội bộ của đối tượng đó thay đổi.
+
+Các thành phần:
+
+- **Context:** Đối tượng chứa trạng thái hiện tại của nó và gọi các phương thức của trạng thái đó.
+- **State Interface:** Interface chứa các phương thức mà mỗi trạng thái cụ thể cần triển khai.
+- **Concrete States:** Các lớp cụ thể triển khai State Interface và định nghĩa hành vi cho mỗi trạng thái.
+
+<h2>2. Cài đặt</h2>
+
+**2.1 Context (Light)**
+
+Xây dựng chương trình có lớp Light đại diện cho đối tượng đèn. Nó chứa một trạng thái nội bộ (state) và triển khai hai phương thức turnOn() và turnOff() để thực hiện hành động tương ứng.
+
+```java
+public class Light {
+    private LightState state;
+
+    public Light() {
+        state = new OffState();
+    }
+
+    public void setState(LightState state) {
+        this.state = state;
+    }
+
+    public void turnOn() {
+        state.turnOn();
+        setState(new OnState());
+    }
+
+    public void turnOff() {
+        state.turnOff();
+        setState(new OffState());
+    }
+}
+```
+
+**2.2 State Interface (LightState)**
+
+LightState là một giao diện định nghĩa hai phương thức: turnOn() để bật đèn và turnOff() để tắt đèn.
+
+```java
+interface LightState {
+    void turnOn();
+
+    void turnOff();
+}
+```
+
+**2.3 Các Concrete States (OnState và OffState)**
+
+OnState và OffState là hai lớp cài đặt giao diện LightState. Mỗi lớp đại diện cho một trạng thái của đèn.
+
+```java
+public class OnState implements LightState {
+    @Override
+    public void turnOn() {
+        System.out.println("The light has already been turned on.");
+    }
+
+    @Override
+    public void turnOff() {
+    	System.out.println("The light is turned off.");
+    }
+}
+```
+
+```java
+public class OffState implements LightState {
+    @Override
+    public void turnOn() {
+        System.out.println("The light is turned on.");
+    }
+
+    @Override
+    public void turnOff() {
+    	System.out.println("The light has already been turned off.");
+    }
+}
+```
+
+<h2>3. Thử nghiệm</h2>
+
+Trong lớp Main, chúng ta tạo một đối tượng Light và sử dụng các phương thức turnOn() và turnOff() để thực hiện các hành động tương ứng trên đèn. Kết quả sẽ được in ra màn hình, hiển thị thông báo và trạng thái của đèn sau mỗi hành động.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Light light = new Light();
+
+        light.turnOn();
+        light.turnOn();
+        light.turnOff();
+        light.turnOff();
+    }
+}
+```
+
+Output:
+
+```
+The light is turned on.
+The light has already been turned on.
+The light is turned off.
+The light has already been turned off.
+```
+
+<h1 align=center>Template Pattern</h1>
+
+<h2>1. Định nghĩa</h2>
+
+Template Pattern thuộc nhóm mẫu thiết kế hành vi (behavioral design pattern) cho phép xác định một bộ khung (template) cho một thuật toán trong một lớp cơ sở và để các lớp con triển khai các bước cụ thể của thuật toán mà không thay đổi cấu trúc tổng thể của nó.
+
+Các thành phần:
+
+- Abstract Template Class: Lớp cơ sở chứa các phương thức cốt lõi và một phương thức template để gọi các phương thức cốt lõi đó.
+- Concrete Classes: Các lớp con triển khai các phương thức cốt lõi để thực hiện các bước cụ thể của thuật toán.
+
+<h2>2. Cài đặt</h2>
+
+**2.1 Abstract Template Class (RecipeTemplate)**
+
+Xây dựng chương trình có lớp RecipeTemplate là một lớp trừu tượng định nghĩa một bản mẫu (template) chứa các phương thức cốt lõi để chuẩn bị, nấu và dọn dẹp cho một công thức nấu ăn.
+
+```java
+public abstract class RecipeTemplate {
+	public void prepareIngredients() {
+		System.out.println("Preparing ingredients");
+	}
+
+    public abstract void cook();
+
+    public void cleanUp() {
+    	System.out.println("Cleaning up");
+    }
+
+    public final void makeRecipe() {
+    	prepareIngredients();
+    	cook();
+    	cleanUp();
+    }
+
+}
+```
+
+**2.2 Các Concrete Classes (PizzaRecipe và SaladRecipe)**
+
+PizzaRecipe và SaladRecipe là hai lớp con kế thừa từ RecipeTemplate. Mỗi lớp con triển khai phương thức cook() để xác định cách nấu ăn cụ thể cho công thức của nó.
+
+```java
+public class PizzaRecipe extends RecipeTemplate {
+	@Override
+	public void cook() {
+		System.out.println("Baking the pizza at 400 degrees F");
+	}
+}
+```
+
+```java
+public class SaladRecipe extends RecipeTemplate {
+	@Override
+	public void cook() {
+		System.out.println("Tossing the salad ingredients");
+	}
+}
+```
+
+<h2>3. Thử nghiệm</h2>
+
+Trong hàm main, ta tạo các đối tượng của các lớp cụ thể và gọi phương thức makeRecipe() để thực hiện các bước chuẩn bị, nấu và dọn dẹp cho mỗi loại món.
+
+```java
+public class Main {
+	public static void main(String[] args) {
+		System.out.println("Making a pizza:");
+		RecipeTemplate pizzaRecipe = new PizzaRecipe();
+		pizzaRecipe.makeRecipe();
+
+		System.out.println("---");
+
+		System.out.println("Making a salad:");
+		RecipeTemplate saladRecipe = new SaladRecipe();
+		saladRecipe.makeRecipe();
+	}
+}
+```
+
+Output:
+
+```
+Making a pizza:
+Preparing ingredients
+Baking the pizza at 400 degrees F
+Cleaning up
+---
+Making a salad:
+Preparing ingredients
+Tossing the salad ingredients
+Cleaning up
+```
