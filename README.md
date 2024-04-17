@@ -528,8 +528,8 @@ Chain Of Responsibility Pattern thuộc nhóm mẫu thiết kế hành vi (behav
 
 Các thành phần:
 
-- Handler: Interface hoặc lớp trừu tượng chứa phương thức để xử lý yêu cầu và có một tham chiếu đến handler tiếp theo trong chuỗi.
-- Concrete Handlers: Các lớp cụ thể triển khai phương thức xử lý yêu cầu và quyết định liệu họ có thể xử lý yêu cầu đó hay không.
+- **Handler:** Interface hoặc lớp trừu tượng chứa phương thức để xử lý yêu cầu và có một tham chiếu đến handler tiếp theo trong chuỗi.
+- **Concrete Handlers:** Các lớp cụ thể triển khai phương thức xử lý yêu cầu và quyết định liệu họ có thể xử lý yêu cầu đó hay không.
 
 <h2>2. Cài đặt</h2>
 
