@@ -1,4 +1,4 @@
-| Behavioral Pattern              | Documentation                                                                                |
+| Behavioral Pattern              | Report                                                                                       |
 | ------------------------------- | -------------------------------------------------------------------------------------------- |
 | Strategy Pattern                | [PDF](https://drive.google.com/file/d/1ev9RnALR7F1jI3iBTlzloypjz_fuJeyH/view?usp=drive_link) |
 | Mediator Pattern                | [PDF](https://drive.google.com/file/d/1ekUsBJCI6uWQXDChJvctNkcAiNRqDpuT/view?usp=drive_link) |
