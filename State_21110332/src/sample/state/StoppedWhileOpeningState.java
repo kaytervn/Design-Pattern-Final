@@ -13,6 +13,6 @@ public class StoppedWhileOpeningState implements DoorState {
 
 	@Override
 	public void timeout(Door door) {
-		System.out.println("Door is stopped while closing");
+		System.out.println("Door is stopped while opening");
 	}
 }
